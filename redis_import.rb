@@ -3,7 +3,7 @@ module RedisImport
     dl = r.hgetall(vidid)
 
     {
-      '_id' => dl['id'],
+      '_id' => vidid,
       'hash' => dl['hash'],
       'user' => dl['user'],
       'inserted_at' => Time.now.to_f,
