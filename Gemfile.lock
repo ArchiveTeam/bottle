@@ -19,11 +19,12 @@ GEM
     monkey-lib (0.5.4)
       backports
     rack (1.2.2)
+    redis (2.2.0)
     rest-client (1.6.1)
       mime-types (>= 1.16)
     sinatra (1.2.3)
       rack (~> 1.1)
-      tilt (>= 1.2.2, < 2.0)
+      tilt (< 2.0, >= 1.2.2)
     sinatra-advanced-routes (0.5.1)
       monkey-lib (~> 0.5.0)
       sinatra (~> 1.0)
@@ -47,6 +48,7 @@ DEPENDENCIES
   couchrest!
   facets
   haml
+  redis
   sinatra
   sinatra-reloader
   typhoeus

@@ -1,0 +1,28 @@
+aggregates:
+  downloaded_by_user:
+    map: |-
+      function(doc) {
+        emit(doc['user'], doc);
+      }
+    reduce: |-
+      function (keys, values, rereduce) {
+        var count, size;
+
+        if (rereduce) {
+          count = sum(values.map(function (v) { return v['count'] }));
+        } else {
+          count = values.length;
+        }
+
+        size = sum(values.map(function (v) { return parseInt(v['size'], 10); }));
+
+        return { count: count, size: size };
+      }
+filters:
+  by_insert_time:
+    map: |-
+      function(doc) {
+        if (typeof(doc['inserted_at']) == 'number') {
+          emit(doc['inserted_at'], doc);
+        }
+      }
