@@ -21,6 +21,11 @@ end
 to_save = []
 
 each_download do |dl|
+  if DB.get(dl['id'])
+    puts "Already imported #{dl['id']}, skipping."
+    next
+  end
+
   doc = {
     '_id' => dl['id'],
     'hash' => dl['hash'],
