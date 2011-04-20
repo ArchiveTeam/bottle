@@ -10,15 +10,30 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    backports (2.1.0)
+    facets (2.9.1)
+    haml (3.0.25)
     json (1.5.1)
     json (1.5.1-java)
     mime-types (1.16)
+    monkey-lib (0.5.4)
+      backports
     rack (1.2.2)
     rest-client (1.6.1)
       mime-types (>= 1.16)
     sinatra (1.2.3)
       rack (~> 1.1)
       tilt (>= 1.2.2, < 2.0)
+    sinatra-advanced-routes (0.5.1)
+      monkey-lib (~> 0.5.0)
+      sinatra (~> 1.0)
+      sinatra-sugar (~> 0.5.0)
+    sinatra-reloader (0.5.0)
+      sinatra (~> 1.0)
+      sinatra-advanced-routes (~> 0.5.0)
+    sinatra-sugar (0.5.0)
+      monkey-lib (~> 0.5.0)
+      sinatra (~> 1.0)
     tilt (1.2.2)
     typhoeus (0.2.4)
       mime-types
@@ -30,5 +45,8 @@ PLATFORMS
 
 DEPENDENCIES
   couchrest!
+  facets
+  haml
   sinatra
+  sinatra-reloader
   typhoeus

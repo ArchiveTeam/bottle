@@ -1,0 +1,61 @@
+%html
+  %head
+    %title Listerine statistics
+    %link{:href => 'http://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic',
+          :rel => 'stylesheet',
+          :type => 'text/css'}
+    %link{:href => 'screen.css',
+          :rel => 'stylesheet',
+          :type => 'text/css'}
+  %body
+    %table
+      %caption Download counts
+      %col{:width => '60%'}
+      %col{:width => '20%'}
+      %col{:width => '20%'}
+      %thead
+        %tr
+          %th
+            %a{:href => '?sort=user'}
+              User
+          %th
+            %a{:href => '?sort=count'}
+              Count
+          %th
+            %a{:href => '?sort=size'}
+              Size (GB)
+      %tbody
+        -@users.each do |row|
+          %tr
+            %td
+              = row['user']
+            %td
+              = row['count']
+            %td
+              = row['size'] / 1.giga
+      %tfoot
+        %tr
+          %td
+            All users
+          %td
+            = @users.inject(0) { |t, r| t + r['count'] }
+          %td
+            = @users.inject(0) { |t, r| t + r['size'] } / 1.giga
+    %table
+      %caption Most recently downloaded videos
+      %col{:width => '80%'}
+      %col{:width => '20%'}
+      %thead
+        %tr
+          %th
+            Video ID
+          %th
+            By
+      %tbody
+        -@recent.each do |row|
+          %tr
+            %td
+              %a{:href => 'http://video.google.com/videoplay?docid=' + row['docid']}
+                = row['docid']
+            %td
+              = row['user']

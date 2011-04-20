@@ -1,0 +1,22 @@
+html {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+}
+
+body {
+  width: 100%;
+}
+
+table {
+  float: left;
+  width: 50%;
+
+  caption {
+    font-weight: bold;
+    font-size: 150%;
+  }
+
+  tfoot td {
+    font-weight: bold;
+  }
+}

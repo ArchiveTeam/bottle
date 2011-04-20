@@ -1,21 +1,33 @@
+require 'facets/multipliers'
+require 'haml'
 require 'json'
+require 'sass'
 require 'sinatra'
 require 'yaml'
 
 require File.expand_path('../db', __FILE__)
+require File.expand_path('../data_access', __FILE__)
 
 include Db
+include DataAccess
+
+configure(:development) do |c|
+  require 'sinatra/reloader'
+
+  c.also_reload '*.rb'
+end
 
 DB = make_connection
 
-RestClient.log = $stderr
+set :haml, :format => :html5
 
-get '/users' do
-  content_type :json
+get '/' do
+  @users = users_and_download_count
+  @recent = recently_downloaded(50)
 
-  DB.view('aggregates/downloaded_by_user', :group => true) do |rows|
-    rows.map do |row|
-      row['value'].tap { |v| v['user'] = row.delete('key') }
-    end.to_json
-  end
+  haml :index
+end
+
+get '/screen.css' do
+  scss :screen
 end
