@@ -14,7 +14,7 @@ aggregates:
           count = values.length;
         }
 
-        size = sum(values.map(function (v) { return parseInt(v['size'], 10); }));
+        size = sum(values.map(function (v) { return v['size']; }));
 
         return { count: count, size: size };
       }
@@ -22,7 +22,5 @@ filters:
   by_insert_time:
     map: |-
       function(doc) {
-        if (typeof(doc['inserted_at']) == 'number') {
-          emit(doc['inserted_at'], doc);
-        }
+        emit(doc['inserted_at'], doc);
       }
