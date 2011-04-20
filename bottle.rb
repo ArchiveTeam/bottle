@@ -26,6 +26,8 @@ get '/' do
   @users = users_and_download_count
   @latest = latest_timestamp
 
+  @users.reject! { |u| !u['user'] }
+
   sort = params[:sort]
 
   @users.sort! { |x, y| x[sort] <=> y[sort] }
