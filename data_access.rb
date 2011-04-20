@@ -51,7 +51,7 @@ module DataAccess
   def latest_timestamp
     ts = 0
 
-    by_insert_time(:limit => 1) do |row|
+    by_insert_time(:limit => 1, :descending => true) do |row|
       ts = row['value']['inserted_at']
     end
 
