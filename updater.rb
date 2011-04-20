@@ -30,12 +30,16 @@ def update_download_stats
   to_save = []
 
   to_update.each do |key|
-    to_save << redis_to_couchdb(R, key)
+    begin
+      to_save << redis_to_couchdb(R, key)
 
-    if to_save.length > 1000
-      CouchDB.bulk_save(to_save)
+      if to_save.length > 1000
+        CouchDB.bulk_save(to_save)
 
-      to_save = []
+        to_save = []
+      end
+    rescue RuntimeError => e
+      puts "Error when retrieving data for #{vidid}: #{e.inspect}"
     end
   end
 
