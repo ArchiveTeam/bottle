@@ -1,4 +1,9 @@
 module DataAccess
+  Views = {
+    :downloaded_by_user => 'aggregates/downloaded_by_user',
+    :by_insert_time => 'filters/by_insert_time'
+  }
+
   def couchdb
     CouchDB
   end
@@ -11,7 +16,7 @@ module DataAccess
   #   ]
   def users_and_download_count
     [].tap do |rows|
-      couchdb.view('aggregates/downloaded_by_user', :group => true, :stale => :ok) do |row|
+      couchdb.view(Views[:downloaded_by_user], :group => true, :stale => :ok) do |row|
         rows << row['value'].tap do |v|
           user = row.delete('key')
           v['user'] = user
@@ -56,6 +61,6 @@ module DataAccess
   private
 
   def by_insert_time(options, &block)
-    couchdb.view('filters/by_insert_time', options.merge(:stale => :ok), &block)
+    couchdb.view(Views[:by_insert_time], options.merge(:stale => :ok), &block)
   end
 end
