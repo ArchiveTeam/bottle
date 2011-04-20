@@ -39,7 +39,7 @@ def update_download_stats
         to_save = []
       end
     rescue RuntimeError => e
-      puts "Error when retrieving data for #{vidid}: #{e.inspect}"
+      puts "Error when retrieving data for #{key}: #{e.inspect}"
     end
   end
 
