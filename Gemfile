@@ -10,6 +10,6 @@ group :development do
   gem 'sinatra-reloader'
 end
 
-group :utilities do
-  gem 'typhoeus'
+group :production do
+  gem 'thin'
 end
