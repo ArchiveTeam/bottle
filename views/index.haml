@@ -7,55 +7,71 @@
     %link{:href => 'screen.css',
           :rel => 'stylesheet',
           :type => 'text/css'}
-  %body
-    %table
-      %caption Download counts
-      %col{:width => '60%'}
-      %col{:width => '20%'}
-      %col{:width => '20%'}
-      %thead
+    %body
+    %section#summary
+      %table
+        %caption Activity as of (date)
         %tr
-          %th
-            %a{:href => '?sort=user'}
-              User
-          %th
-            %a{:href => '?sort=count'}
-              Count
-          %th
-            %a{:href => '?sort=size'}
-              Size (GB)
-      %tbody
-        -@users.each do |row|
+          %th IDs to investigate
+          %th Videos to download
+          %th Downloaded videos
+          %th{:title => 'Calculated as (size of all videos downloaded over last 5 seconds of data) / 5 seconds'}
+            Approximate download rate (MB/s)
+        %tr
+          %td
+          %td
+          %td
+          %td
+            = @throughput
+    %section#lists
+      %table
+        %caption Download counts
+        %col{:width => '60%'}
+        %col{:width => '20%'}
+        %col{:width => '20%'}
+        %thead
+          %tr
+            %th
+              %a{:href => '?sort=user'}
+                User
+            %th
+              %a{:href => '?sort=count'}
+                Count
+            %th
+              %a{:href => '?sort=size'}
+                Size (GB)
+        %tbody
+          -@users.each do |row|
+            %tr
+              %td
+                = row['user']
+              %td
+                = row['count']
+              %td
+                = row['size'] / 1.giga
+        %tfoot
           %tr
             %td
-              = row['user']
+              All users
             %td
-              = row['count']
+              = @users.inject(0) { |t, r| t + r['count'] }
             %td
-              = row['size'] / 1.giga
-      %tfoot
-        %tr
-          %td
-            All users
-          %td
-            = @users.inject(0) { |t, r| t + r['count'] }
-          %td
-            = @users.inject(0) { |t, r| t + r['size'] } / 1.giga
-    %table
-      %caption Most recently downloaded videos
-      %col{:width => '80%'}
-      %col{:width => '20%'}
-      %thead
-        %tr
-          %th
-            Video ID
-          %th
-            By
-      %tbody
-        -@recent.each do |row|
+              = @users.inject(0) { |t, r| t + r['size'] } / 1.giga
+      %table
+        %caption Most recently downloaded videos
+        %col{:width => '40%'}
+        %col{:width => '60%'}
+        %thead
           %tr
-            %td
-              %a{:href => 'http://video.google.com/videoplay?docid=' + row['docid']}
-                = row['docid']
-            %td
-              = row['user']
+            %th
+              Video ID
+            %th
+              By
+        %tbody
+          -@recent.each do |row|
+            %tr
+              %td
+                %a{:href => 'http://video.google.com/videoplay?docid=' + row['_id'].to_s}
+                  = row['_id']
+              %td
+                = row['user']

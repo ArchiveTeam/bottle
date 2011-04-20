@@ -1,19 +1,43 @@
 html {
   font-family: 'Lato', sans-serif;
   font-size: 24px;
+  line-height: 1.2em;
 }
 
 body {
   width: 100%;
 }
 
-table {
-  float: left;
-  width: 50%;
+section {
+  margin-bottom: 2em;
+}
 
+#summary {
+  table {
+    width: 100%;
+  }
+}
+
+#lists {
+  table {
+    float: left;
+    width: 50%;
+
+    &:first-child {
+      border-left: 1px solid #ccc;
+    }
+  }
+
+  th {
+    text-align: left;
+  }
+}
+
+table {
   caption {
     font-weight: bold;
     font-size: 150%;
+    margin-bottom: 1em;
   }
 
   tfoot td {

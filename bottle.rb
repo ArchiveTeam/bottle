@@ -23,7 +23,8 @@ set :haml, :format => :html5
 
 get '/' do
   @users = users_and_download_count
-  @recent = recently_downloaded(50)
+  @recent = recently_downloaded(25)
+  @throughput = estimated_throughput(5)
 
   haml :index
 end
