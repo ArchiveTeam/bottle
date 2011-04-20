@@ -30,6 +30,7 @@ module DataAccess
 
   def estimated_throughput(past)
     top = by_insert_time(:limit => 1, :descending => true)
+    return 0 if top['rows'].length <= 0
 
     end_time = top['rows'].first['key']
     start_time = end_time - past
