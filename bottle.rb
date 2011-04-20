@@ -26,6 +26,11 @@ get '/' do
   @users = users_and_download_count
   @latest = latest_timestamp
 
+  sort = params[:sort]
+
+  @users.sort! { |x, y| x[sort] <=> y[sort] }
+  @users.reverse! unless sort == 'user'
+
   haml :index
 end
 
