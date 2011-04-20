@@ -1,6 +1,6 @@
 module DataAccess
-  def db
-    DB
+  def couchdb
+    CouchDB
   end
 
   ##
@@ -11,7 +11,7 @@ module DataAccess
   #   ]
   def users_and_download_count
     [].tap do |rows|
-      db.view('aggregates/downloaded_by_user', :group => true) do |row|
+      couchdb.view('aggregates/downloaded_by_user', :group => true, :stale => :ok) do |row|
         rows << row['value'].tap do |v|
           user = row.delete('key')
           v['user'] = user
@@ -22,22 +22,29 @@ module DataAccess
   
   def recently_downloaded(limit)
     [].tap do |rows|
-      db.view('filters/by_insert_time', :limit => limit, :descending => true) do |row|
+      by_insert_time(:limit => limit, :descending => true) do |row|
         rows << row['value']
       end
     end
   end
 
   def estimated_throughput(past)
-    top = db.view('filters/by_insert_time', :limit => 1, :descending => true)
-    end_time = top['rows'][0]['key']
+    top = by_insert_time(:limit => 1, :descending => true)
+
+    end_time = top['rows'].first['key']
     start_time = end_time - past
     size = 0
 
-    db.view('filters/by_insert_time', :startkey => start_time, :endkey => end_time) do |row|
+    by_insert_time(:startkey => start_time, :endkey => end_time) do |row|
       size += row['value']['size']
     end
 
     (size.to_f / 1.mega) / past
+  end
+
+  private
+
+  def by_insert_time(options, &block)
+    couchdb.view('filters/by_insert_time', options.merge(:stale => :ok), &block)
   end
 end
