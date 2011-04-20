@@ -42,6 +42,16 @@ module DataAccess
     (size.to_f / 1.mega) / past
   end
 
+  def latest_timestamp
+    ts = 0
+
+    by_insert_time(:limit => 1) do |row|
+      ts = row['value']['inserted_at']
+    end
+
+    Time.at(ts)
+  end
+
   private
 
   def by_insert_time(options, &block)

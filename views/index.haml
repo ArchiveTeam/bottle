@@ -7,22 +7,14 @@
     %link{:href => 'screen.css',
           :rel => 'stylesheet',
           :type => 'text/css'}
-    %body
+  %body
     %section#summary
-      %table
-        %caption Activity as of (date)
-        %tr
-          %th IDs to investigate
-          %th Videos to download
-          %th Downloaded videos
-          %th{:title => 'Calculated as (size of all videos downloaded over last 5 seconds of data) / 5 seconds'}
-            Approximate download rate (MB/s)
-        %tr
-          %td
-          %td
-          %td
-          %td
-            = @throughput
+      Approximate download rate: #{@throughput} MB/s
+      .explanation
+        %p
+          Measured as (sum of sizes of all videos downloaded over last 5 seconds) / 5 seconds.
+          %br
+          Latest data update: #{@latest}
     %section#lists
       %table
         %caption Download counts
