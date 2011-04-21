@@ -24,10 +24,6 @@ section {
   table {
     float: left;
     width: 50%;
-
-    &:first-child {
-      border-left: 1px solid #ccc;
-    }
   }
 
   th {
