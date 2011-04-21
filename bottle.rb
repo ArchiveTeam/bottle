@@ -30,8 +30,10 @@ get '/' do
 
   sort = params[:sort]
 
-  @users.sort! { |x, y| x[sort] <=> y[sort] }
-  @users.reverse! unless sort == 'user'
+  if sort
+    @users.sort! { |x, y| x[sort] <=> y[sort] }
+    @users.reverse! unless sort == 'user'
+  end
 
   haml :index
 end
