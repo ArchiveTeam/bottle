@@ -33,21 +33,6 @@ module DataAccess
     end
   end
 
-  def estimated_throughput(past)
-    top = by_insert_time(:limit => 1, :descending => true)
-    return 0 if top['rows'].length <= 0
-
-    end_time = top['rows'].first['key']
-    start_time = end_time - past
-    size = 0
-
-    by_insert_time(:startkey => start_time, :endkey => end_time) do |row|
-      size += row['value']['size']
-    end
-
-    (size.to_f / 1.mega) / past
-  end
-
   def latest_timestamp
     ts = 0
 

@@ -21,8 +21,8 @@ CouchDB = CouchDbConnectionFactory.make_couchdb_connection
 set :haml, :format => :html5
 
 get '/' do
-  @recent = recently_downloaded(25)
-  @throughput = estimated_throughput(5)
+  @averaging_period = 300
+  @recent = recently_downloaded(50)
   @users = users_and_download_count
   @latest = latest_timestamp
 

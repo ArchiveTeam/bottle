@@ -9,12 +9,7 @@
           :type => 'text/css'}
   %body
     %section#summary
-      Approximate download rate: #{@throughput} MB/s
-      .explanation
-        %p
-          Measured as (sum of sizes of all videos downloaded over last 5 seconds) / 5 seconds.
-          %br
-          Latest data update: #{@latest}
+      Latest data update: #{@latest}
     %section#lists
       %table
         %caption Download counts
