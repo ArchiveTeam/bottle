@@ -13,12 +13,14 @@ R.monitor do |line|
     time = $1
     docid = $2
     hash = $3
-    size = $4
+    user = $4
+    size = $5
 
     doc = {
       '_id' => docid,
       'hash' => hash,
       'size' => size.to_i,
+      'user' => user,
       'inserted_at' => time.to_f
     }
 
