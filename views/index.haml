@@ -1,0 +1,64 @@
+!!! 5
+%html
+  %head
+    %title Listerine statistics
+    %link{:href=>'/reset.css', :rel=>'stylesheet', :type=>'text/css'}
+    %link{:href=>'http://fonts.googleapis.com/css?family=Lato:regular,bold', :rel=>'stylesheet', :type=>'text/css'}
+    %link{:href=>'/screen.css', :rel=>'stylesheet', :type=>'text/css'}
+  %body
+    .last_update
+      Last update:
+      = @last_update.to_s
+    %table
+      %caption User summary
+      %col{:width => '60%'}
+      %col{:width => '20%'}
+      %col{:width => '20%'}
+      %thead
+        %tr
+          %th
+            %a{:href => '?sort=user'}
+              User
+          %th
+            %a{:href => '?sort=size'}
+              Size (GB)
+          %th
+            %a{:href => '?sort=count'}
+              Videos
+      %tbody
+        - @data.each do |h|
+          %tr
+            %td
+              = h['user']
+            %td
+              = h['size']
+            %td
+              = h['count']
+      %tfoot
+        %tr
+          %td
+            All users
+          %td
+            = @data.inject(0) { |r, h| r + h['size'] }
+          %td
+            = @data.inject(0) { |r, h| r + h['count'] }
+  %table
+    %caption Most recently downloaded videos
+    %col{:width => '40%'}
+    %col{:width => '40%'}
+    %col{:width => '20%'}
+    %thead
+      %tr
+        %th Video ID
+        %th Downloaded by
+        %th Seconds ago
+    %tbody
+      - @recent.each do |h|
+        %tr
+          %td
+            %a{:href => "http://video.google.com/videoplay?docid=#{h['docid']}"}
+              = h['docid']
+          %td
+            = h['user']
+          %th
+            = sprintf('%.2f', Time.now.to_f - h['time'].to_f) if h['time']

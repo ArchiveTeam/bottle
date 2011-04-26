@@ -1,52 +1,23 @@
-GIT
-  remote: git://github.com/couchrest/couchrest.git
-  revision: 9a40db302489d9f4b3c61793450b3577a54fa49c
-  specs:
-    couchrest (1.1.0.pre2)
-      json (~> 1.5.1)
-      mime-types (~> 1.15)
-      rest-client (~> 1.6.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
-    backports (2.1.0)
-    facets (2.9.1)
     haml (3.0.25)
+    hiredis (0.3.1)
     json (1.5.1)
-    json (1.5.1-java)
-    mime-types (1.16)
-    monkey-lib (0.5.4)
-      backports
     rack (1.2.2)
-    rest-client (1.6.1)
-      mime-types (>= 1.16)
+    redis (2.2.0)
     sinatra (1.2.3)
       rack (~> 1.1)
-      tilt (>= 1.2.2, < 2.0)
-    sinatra-advanced-routes (0.5.1)
-      monkey-lib (~> 0.5.0)
-      sinatra (~> 1.0)
-      sinatra-sugar (~> 0.5.0)
-    sinatra-reloader (0.5.0)
-      sinatra (~> 1.0)
-      sinatra-advanced-routes (~> 0.5.0)
-    sinatra-sugar (0.5.0)
-      monkey-lib (~> 0.5.0)
-      sinatra (~> 1.0)
+      tilt (< 2.0, >= 1.2.2)
     tilt (1.2.2)
-    typhoeus (0.2.4)
-      mime-types
-      mime-types
 
 PLATFORMS
   java
   ruby
 
 DEPENDENCIES
-  couchrest!
-  facets
   haml
+  hiredis
+  json
+  redis
   sinatra
-  sinatra-reloader
-  typhoeus

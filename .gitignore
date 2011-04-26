@@ -1,3 +1,4 @@
 *.sw?
 *.rbc
 database.yml
+.sass-cache
